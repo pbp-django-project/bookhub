@@ -1,8 +1,9 @@
 Anggota Kelompok:
-Naufal Ichsan - 2206082013 - NI04Code
-Iqza Ardiansyah - 2206810042 - iqzaardiansyah
-Mariano Gerardus Senduk - 2206814236 - nano141004
-Shirin zarqaa rabbaanii arham - 2206081964 - shirinzarqaa
+1. Naufal Ichsan - 2206082013 - NI04Code <br />
+2. Iqza Ardiansyah - 2206810042 - iqzaardiansyah <br />
+3. Mariano Gerardus Senduk - 2206814236 - nano141004 <br />
+4. Shirin Zarqaa Rabbaanii Arham - 2206081964 - shirinzarqaa <br />
+5. Mario Michael Jeremy Sitanggang - 2206828626 - mariomichael <br />
 
 Nama Web App: BookHub
 Deskripsi Singkat:
