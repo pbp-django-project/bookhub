@@ -32,3 +32,11 @@ Manfaat:
 - Membangun komunitas literasi yang aktif dan berbagi.
 - Memberikan wawasan literasi melalui berita dan artikel berkualitas tinggi.
 - Meningkatkan kesadaran literasi di tengah tema "Literasi dalam Kebinekaan untuk Kemajuan Bangsa" yang sedang berlangsung.
+
+Modul:
+- modul main: berisi homepage, login, signup, logout.
+- modul books: berisi pengolahan database buku dan pemilahan baik berdasarkan genre, authors, tahun terbit, dll
+- modul profile: berisi profile, menentukan role role dari user
+- modul keempat: .....
+- modul kelima: ....
+- modul seterusnya....
