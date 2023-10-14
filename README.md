@@ -51,9 +51,3 @@ Modul Koleksi Pengguna: Modul yang memungkinkan pengguna membuat “board” sep
 - Admin User (full access)  
 - Login User (bisa melakukan input berupa menambahkan/menghapus buku, melakukan review)  
 - Anonymous user/tidak login (bisa membaca/mendownload buku, tidak bisa melakukan review maupun menambah/menghapus buku)
- 
-
-
-
-
-
