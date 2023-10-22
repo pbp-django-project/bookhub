@@ -9,16 +9,13 @@
         {% endblock meta %}
 
         <script src="https://cdn.tailwindcss.com"></script>
-        
-
+      
         <title>{% block title %}{% endblock title %} | BookHub</title>
     </head>
 
-    <body>
-        <div class="px-6 py-6">
-            {% block content %}
-            {% endblock content %}
-        </div>
+    <body class="bg-slate-50">
+    {% block content %}
+    {% endblock content %}
     </body>
 
 </html>
