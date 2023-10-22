@@ -1,10 +1,83 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block title %} Welcome {% endblock title %}
 
 {% block content %}
 {% include 'header.html' %}
-<h1>This is {{ username }} HOMEPAGE</h1>
+
+<div class="container mx-auto columns-2">
+    <div class="my-32 text-justify">
+        <h1 class="text-teal-500 font-bold font-sans text-5xl py-2 -mx-2">Welcome {{username}}!</h1>
+        <h2 class="text-teal-500 font-semibold font-sans text-2xl">Discover - Review - Discuss - Contribute</h2>
+        <p class="font-sans py-3 text-slate-600">
+            At BookHub, books are not just words on pages; they're portals to different worlds, a source of inspiration, and a catalyst for rich discussions.
+        </p>
+    </div>
+
+    <div class="relative">
+        <img class="mx-16 scale-75" src="{% static 'main/book.svg' %}">
+    </div>
+</div>
+
+<div class="py-10">
+    <h2 class="py-5 text-teal-500 text-center font-bold font-sans text-4xl">Our Features</h2>
+    <div class="container mx-auto my-6 columns-2">
+        <img class="mx-80 w-56" src="{% static 'main/search.svg' %}">
+        <h1 class="text-teal-500 font-semibold font-sans text-2xl">Extensive Book Database</h1>
+        <p class="text-justify text-slate-600">
+            Our web offers an extensive and diverse database of books from various genres, authors, and time periods. 
+            You can easily explore and search for your favorite books, whether they're classics, contemporary bestsellers, or hidden literary gems.</p>
+    </div>
+    <div class="container mx-auto my-6 columns-2">
+        <img class="mx-80 w-56" src="{% static 'main/recommend.svg' %}">
+        <h1 class="text-teal-500 font-semibold font-sans text-2xl">Book Recommendations</h1>
+        <p class="text-justify text-slate-600">
+            Receive personalized book recommendations tailored to your reading preferences. 
+            Discover new reads that align with your interests and broaden your literary horizons.
+        </p>
+    </div>
+    <div class="container mx-auto my-6 columns-2">
+        <img class="mx-80 w-56" src="{% static 'main/bookmark.svg' %}">
+        <h1 class="text-teal-500 font-semibold font-sans text-2xl">Bookmark and Favorites</h1>
+        <p class="text-justify text-slate-600">
+            Bookmark the books that pique your interest and save them for later on our user-friendly books website. 
+            Never lose track of those captivating reads again! Enjoy the convenience of creating your personal reading list 
+            and dive into the world of your favorite books whenever you desire.
+        </p>
+    </div>
+    <div class="container mx-auto my-6 columns-2">
+        <img class="mx-80 w-56" src="{% static 'main/review.svg' %}">
+        <h1 class="text-teal-500 font-semibold font-sans text-2xl">User Reviews and Ratings</h1>
+        <p class="text-justify text-slate-600">
+            Share your thoughts and experiences on the books you've devoured. Leave insightful reviews for fellow 
+            readers on our books website. Your reviews can help others discover their next great read and spark 
+            engaging conversations within our literary community. Dive into the world of 
+            literary discussions and let your voice be heard!
+        </p>
+    </div>
+    <div class="container mx-auto my-6 columns-2">
+        <img class="mx-80 w-56" src="{% static 'main/discuss.svg' %}">
+        <h1 class="text-teal-500 font-semibold font-sans text-2xl">Dynamic Discussion Forum</h1>
+        <p class="text-justify text-slate-600">
+            Engage in lively discussions with fellow book enthusiasts in our dynamic discussion forum. 
+            Dive deep into the plot, characters, themes, and much more. It's a space to connect, learn, 
+            and share your passion for literature.
+        </p>
+    </div>
+    <div class="container mx-auto my-6 columns-2">
+        <img class="mx-80 w-56" src="{% static 'main/add.svg' %}">
+        <h1 class="text-teal-500 font-semibold font-sans text-2xl">User-Generated Content</h1>
+        <p class="text-justify text-slate-600">
+            As a member of our community, you have the power to contribute. 
+            Add new books to our database, sharing your discoveries with others and expanding our library of books for everyone to enjoy.
+        </p>
+    </div>
+    
+        
+</div>
+
 
 
 {% include 'footer.html' %}
