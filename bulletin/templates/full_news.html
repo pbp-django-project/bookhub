@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}news{% endblock title %}
+{% block content %}
+<div class="min-h-screen flex flex-col">
+    <div>
+        {% include 'header.html' %}
+    </div>
+    <div class="flex-grow">
+        <div class="p-6">
+            <div>
+                <h1>{{news.title}}</h1>
+                <br>
+                <span>{{news.author}} | {{news.date_published}}</span>
+            </div>
+            <div>
+                <p>{{news.content}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="p-6">
+        <a href="{% url 'bulletin:show-bulletin' %}"
+            class="px-12 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded">back</a>
+    </div>
+    <br>
+    <div>
+        <!-- Footer Anda di sini -->
+        {% include 'footer.html' %}
+    </div>
+</div>
+{% endblock content %}
