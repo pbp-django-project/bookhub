@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Bulletin{% endblock title %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col">
+    <div>
+        {% include 'header.html' %}
+    </div>
+    <!-- searching berita -->
+    <div class="flex">
+        <div class="my-4 flex items-center">
+            <div class="flex">
+                <input type="text" placeholder=" search title"
+                    class="px-4 py-2 rounded-l-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 w-4/5 ml-4">
+                <button type="submit" class="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-r-lg w-1/3">search</button>
+            </div>
+        </div>
+        <!-- menambah berita -->
+        <div class="my-4 flex items-center">
+            <div>
+                <a href="{% url 'bulletin:add-news-page' %}"
+                    class="px-12 py-2 bg-teal-500 py-2.5 rounded-lg block text-white hover:bg-teal-700 rounded ml-4">add
+                    Bulletin</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="p-6 flex-grow">
+        <!-- Daftar berita di sini -->
+        <ul>
+            {% for bulletin in bulletins %}
+            <li>
+                <a href="{% url 'bulletin:full-news' bulletin.pk %}"
+                    class="py-3 text-lg font-semibold hover:text-gray-600">
+                    {{ bulletin.title }}</a>
+                <p>{{ bulletin.content|slice:":300"}}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="bg-gray-100 p-6">
+        <h1 class="text-center text-xl font-semibold py-3">Book Recommendations</h1>
+        <div class="flex space-x-4">
+            {% for book in latest_books %}
+            
+            <div class="bg-white w-full shadow-lg rounded-lg p-4 w-64 h-48 cursor-grab">
+                <div class="p-5 border-b bg-teal-500 rounded-t-lg">
+                    <img src="{{ book.cover_img }}" class="w-36 mx-32">
+                </div>
+                <h2>{{ book.title }}</h2>
+                <p>Author: {{ book.authors }}</p>
+                <p>Publisher: {{ book.publisher }}</p>
+                <p>ISBN: {{book.isbn}}</p>
+                <p>Pub Year: {{ book.pub_year }}</p>
+                <!-- Add any other book information you want to display -->
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div>
+        <!-- Footer Anda di sini -->
+        {% include 'footer.html' %}
+    </div>
+
+</div>
+{% endblock content %}
+
