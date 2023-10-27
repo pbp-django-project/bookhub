@@ -9,23 +9,33 @@
     <div class="flex-grow">
         <div class="p-6">
             <div>
-                <h1>{{news.title}}</h1>
+                <h1 class="font-bold text-lg">{{ news.title }}</h1>
                 <br>
-                <span>{{news.author}} | {{news.date_published}}</span>
+                <span>{{ news.author }} | {{ news.date_published }}</span>
             </div>
-            <div>
-                <p>{{news.content}}</p>
+            <div class="text-justify">
+                <p>{{ news.content|linebreaksbr }}</p>
             </div>
         </div>
-    </div>
-    <div class="p-6">
-        <a href="{% url 'bulletin:show-bulletin' %}"
-            class="px-12 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded">back</a>
+        <br>
+        <div class = "p-6">
+            <!-- Tombol "back" tanpa mengganti seluruh halaman -->
+            <button onclick="goBack()" class="px-12 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded">back</button>
+        </div>
     </div>
     <br>
-    <div>
-        <!-- Footer Anda di sini -->
-        {% include 'footer.html' %}
-    </div>
+    <!-- Footer Anda di sini -->
+    {% include 'footer.html' %}
 </div>
+
+<script>
+    // Fungsi untuk kembali ke halaman sebelumnya
+    function goBack() {
+        window.history.back();
+    }
+</script>
 {% endblock content %}
+
+
+
+
