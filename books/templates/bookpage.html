@@ -121,29 +121,21 @@
     
 </div>
 
-
-
-<div class="mt-6 px-6 py-12 bg-red-700 rounded-xl">
-    <div class="grid grid-cols-3 auto-cols-max gap-3">
+<div class="bg-gray-100 p-6">
+    <h1 class="text-center text-2xl font-semibold py-3">Book Recommendations</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {% for book in books %}
-            <div class="container col-span-1 flex flex-col bg-white border-2 p-4">
-                <a href=#>
-                    <div class="p-5 border-b bg-teal-500 rounded-t-lg">
-                        <img src="{{ book.cover_img }}" class="w-36 mx-32">
-                    </div>
-                    <div class="p-6 bg-white rounded-b-xl h-auto shadow-lg">
-                        <h2 class="text-2xl text-center">{{ book.title }}<h2>
-                        <div class="my-3 grid grid-cols-2 gap-2 text-center">
-                            <p class="text-slate-500"> Author: {{ book.authors }}</p> 
-                            <p class="text-slate-500"> ISBN: {{ book.isbn }}</p>
-                            <p class="text-slate-500"> Publisher: {{ book.publisher }}</p> 
-                            <p class="text-slate-500"> Pub Year: {{ book.pub_year }}</p>     
-                        </div>
-                    </div>
-                </a>
+        <div class="bg-white shadow-lg rounded-lg cursor-grab">
+            <img src="{{ book.cover_img }}" class="rounded-t-lg w-full h-64 object-cover">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold">{{ book.title }}</h2>
+                <p class="text-sm">Author: {{ book.authors }}</p>
+                <p class="text-sm">Publisher: {{ book.publisher }}</p>
+                <p class="text-sm">ISBN: {{ book.isbn }}</p>
+                <p class="text-sm">Pub Year: {{ book.pub_year }}</p>
             </div>
+        </div>
         {% endfor %}
-
     </div>
 </div>
 <a href={% url 'books:add-books' %} class="fixed right-0 bottom-0 w-14 h-14 rounded-full bg-teal-500 hover:bg-teal-700 text-white text-center text-5xl font-bold m-10">+</a>

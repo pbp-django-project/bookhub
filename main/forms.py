@@ -11,11 +11,11 @@ class SignUpForm(UserCreationForm):
 
 class Widget(ClearableFileInput):
     initial_text = ''
-    input_text = ''
+    input_text = 'Square image is highly recommended'
     
 
 class PictForm(forms.ModelForm):
-    profile_pict = forms.ImageField(label='', label_suffix='')
+    profile_pict = forms.ImageField(label='', label_suffix='', widget=Widget)
 
     class Meta:
         model = extendUser
