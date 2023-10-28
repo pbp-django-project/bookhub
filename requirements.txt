@@ -1,6 +1,8 @@
-django
+django==4.1.4
 gunicorn
 whitenoise
 psycopg2-binary
 requests
 urllib3
+django_browser_reload
+Pillow

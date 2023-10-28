@@ -3,6 +3,7 @@
 
 {% block title %}Log In{% endblock title %}
 {% block content %}
+{% include 'header.html' %}
 <div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
     <h1 class="mb-6 text-3xl text-center">Log In</h1>
 
@@ -21,7 +22,7 @@
         </div>
 
     
-        <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Login</button>
+        <button class="py-1 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Login</button>
     </form>
     {% if messages %}
         <ul>
@@ -33,4 +34,5 @@
         
     Don't have an account yet? <a class="text-teal-500 hover:text-teal-700" href="{% url 'main:signup' %}">Register Now</a>
 </div>
+{% include 'footer.html' %}
 {% endblock content %}
