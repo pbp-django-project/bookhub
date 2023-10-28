@@ -6,7 +6,7 @@
     <div>
         {% include 'header.html' %}
     </div>
-    <div class="flex-grow">
+    <div class="flex-grow max-w-screen-md mx-auto bg-gray-100 p-6">
         <div class="p-6">
             <div>
                 <h1 class="font-bold text-lg">{{ news.title }}</h1>
@@ -23,7 +23,6 @@
             <button onclick="goBack()" class="px-12 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded">back</button>
         </div>
     </div>
-    <br>
     <!-- Footer Anda di sini -->
     {% include 'footer.html' %}
 </div>
