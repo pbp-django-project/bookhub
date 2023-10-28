@@ -4,13 +4,132 @@
 
 {% block content %}
 {% include 'header.html' %}
-<div class="mt-6 px-6 py-12 bg-slate-100 rounded-xl">
+
+
+<div class="flex items-center justify-center pt-5">
+    <div class="relative inline-block text-left">
+        <button id="dropdown-button" class="inline-flex justify-center w-24 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm">
+            All
+        </button>
+        <div id="dropdown-menu" class="origin-top-right absolute right-0 mt-2  rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+            <div class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button">
+                <a id="All" class="dropdown-menu flex rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100" role="menuitem">
+                    All
+                  </a>
+                <a id="Title" class="dropdown-menu flex rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100" role="menuitem">
+                    Title
+                  </a>
+                <a id="Author" class="dropdown-menu flex  rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100" role="menuitem">
+                    Author
+                  </a>
+                <a id="Publisher" class="dropdown-menu flex rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100" role="menuitem">
+                    Publisher
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropdownButton = document.getElementById('dropdown-button');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        let isDropdownOpen = true; // Set to true to open the dropdown by default, false to close it by default
+    
+        // Function to toggle the dropdown
+        function toggleDropdown() {
+            if (!isDropdownOpen) {
+                dropdownMenu.classList.remove('hidden');
+                isDropdownOpen = true
+            } else {
+                dropdownMenu.classList.add('hidden');
+                isDropdownOpen = false
+            }
+            
+        }
+    
+        // Initialize the dropdown state
+        toggleDropdown();
+    
+        // Toggle the dropdown when the button is clicked
+        dropdownButton.addEventListener('click', toggleDropdown);
+    
+        // Close the dropdown when clicking outside of it
+        window.addEventListener('click', (event) => {
+            if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+                isDropdownOpen = false;
+            }
+        });
+
+        // Select dropdown
+        const buttons = document.querySelectorAll('.dropdown-menu')
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                // Remove active class on all buttons
+                buttons.forEach((b) => {
+                    b.classList.remove('active')
+                    b.classList.remove('bg-teal-500')
+                    b.classList.remove('text-white')
+                })
+                // Add active on the one clicked
+                button.classList.add('active')
+                button.classList.add('bg-teal-500')
+                button.classList.add('text-white')
+                document.getElementById('dropdown-button').innerHTML = button.id
+                dropdownMenu.classList.add('hidden');
+                isDropdownOpen = false;
+            });
+        });
+
+
+        // Ajax for filtering
+        $(document).ready(function() {
+            $("#All").click(function() {
+                filterResults("all");
+            });
+            
+            $("#Title").click(function() {
+                filterResults("title");
+            });
+
+            $("#Author").click(function() {
+                filterResults("author");
+            });
+
+            $("#Publisher").click(function() {
+                filterResults("publisher");
+            });
+    
+            function filterResults(filterType) {
+                // Send an AJAX request to your Django view
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'books:search-books' %}",  // Replace with your view URL
+                    data: {
+                        filter: filterType
+                    }
+                });
+            }
+        });
+    </script>
+
+    <form method="get" action='{% url 'books:search-books' %}'>
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Search a book" class="border-b-2 border-gray-300 bg-white h-10 pr-60 pl-4 rounded-md shadow-sm text-sm ml-1">
+        <button type="submit" class="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-md shadow-sm">search</button>
+    </form>
+
+    
+</div>
+
+
+
+<div class="mt-6 px-6 py-12 bg-red-700 rounded-xl">
     <div class="grid grid-cols-3 auto-cols-max gap-3">
         {% for book in books %}
             <div class="container col-span-1 flex flex-col bg-white border-2 p-4">
-                <a href='#'></a>
-                    <div class="p-5 border-b bg-teal-500 rounded-t-lg text-center">
-                        <img src="{{ book.cover_img }}" class="w-36 mx-auto">
+                <a href=#>
+                    <div class="p-5 border-b bg-teal-500 rounded-t-lg">
+                        <img src="{{ book.cover_img }}" class="w-36 mx-32">
                     </div>
                     <div class="p-6 bg-white rounded-b-xl h-auto shadow-lg">
                         <h2 class="text-2xl text-center">{{ book.title }}<h2>
@@ -21,11 +140,12 @@
                             <p class="text-slate-500"> Pub Year: {{ book.pub_year }}</p>     
                         </div>
                     </div>
+                </a>
             </div>
         {% endfor %}
 
     </div>
 </div>
-
+<a href={% url 'books:add-books' %} class="fixed right-0 bottom-0 w-14 h-14 rounded-full bg-teal-500 hover:bg-teal-700 text-white text-center text-5xl font-bold m-10">+</a>
 {% include 'footer.html' %}
 {% endblock content %}
