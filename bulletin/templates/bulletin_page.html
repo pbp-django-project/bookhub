@@ -8,38 +8,40 @@
     <div>
         {% include 'header.html' %}
     </div>
-    <div>
-        <div class="flex">
-            <!-- Searching berita -->
-            <div class="my-4 flex items-center">
-                <form method="get" id="search-form" action="{% url 'bulletin:search-bulletin' %}">
-                    <div class="flex">
-                        <input type="text" name="q" id="search-input" placeholder="Search title"
-                            class="px-4 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 w-4/5 ml-4">
-                        <button type="submit" class="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-lg ml-1">Search</button>
-                        <a href="{% url 'bulletin:add-news-page' %}"class="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-lg block ml-1">Add</a>
-                    </div>
-                </form>
+    <div class = "max-w-screen-md mx-auto">
+        <div>
+            <div class="flex">
+                <!-- Searching berita -->
+                <div class="my-4 flex items-center">
+                    <form method="get" id="search-form" action="{% url 'bulletin:search-bulletin' %}">
+                        <div class="flex">
+                            <input type="text" name="q" id="search-input" placeholder="Search title"
+                                class="px-4 py-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 w-4/5 ml-4">
+                            <button type="submit" class="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-lg ml-1">Search</button>
+                            <a href="{% url 'bulletin:add-news-page' %}"class="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-lg block ml-1">Add</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="p-6 flex-grow">
-        <!-- Daftar berita di sini -->
-        <ul id="bulletin-list">
-            {% if bulletins %}
-                {% for bulletin in bulletins %}
-                <li>
-                    <a href="{% url 'bulletin:full-news' bulletin.pk %}"
-                        class="py-3 text-lg font-semibold hover:text-gray-600">
-                        {{ bulletin.title }}</a>
-                    <p>{{ bulletin.content|slice:":400" }}...</p>
-                </li>
-                {% endfor %}
-            {% else %}
-                <li class = "text-lg text-red-500">No results matching "{{query}}" .</li>
-            {% endif %}
-        </ul>
+        <div class="p-6 flex-grow">
+            <!-- Daftar berita di sini -->
+            <ul id="bulletin-list">
+                {% if bulletins %}
+                    {% for bulletin in bulletins %}
+                    <li>
+                        <div>
+                            <a href="{% url 'bulletin:full-news' bulletin.pk %}" class="py-3 text-lg font-semibold hover:text-gray-600">{{ bulletin.title }}</a>
+                            <p class = "text-justify">{{ bulletin.content|slice:":400" }}...</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                {% else %}
+                    <li class = "text-lg text-red-500">No results matching "{{query}}" .</li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
 
     <!-- Kumpulan card rekomendasi buku -->
