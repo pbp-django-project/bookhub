@@ -17,6 +17,7 @@
                     <p class="text-sm">Publisher: {{ book.publisher }}</p>
                     <p class="text-sm">ISBN: {{ book.isbn }}</p>
                     <p class="text-sm">Pub Year: {{ book.pub_year }}</p>
+                    <p id="average_rating" class="text-sm"> Rating by users: {{ average_rating|floatformat:1 }}/5</p>
                 </div>
             </div>
         </div>
