@@ -1,6 +1,9 @@
+{% load static %}
+
 <nav class="py-6 px-3 flex justify-between items-center border-b border-gray-200 bg-gray-100">
     <div class="flex">
-        <a class="text-2xl font-semibold font-sans py-2" href="{% url 'main:homepage' %}">BookHub</a>
+        <img src="{% static 'main/bookhub_icon.svg' %}" width="40" height="40" class="ml-3 mb-1">
+        <h1 class="text-2xl font-semibold font-mono underline decoration-teal-500 underline-offset-3 py-2 mr-7 ml-3">BookHub</h1>
         <a href="{% url 'main:homepage' %}" class="px-3 py-3 text-lg font-semibold hover:text-gray-600">Home</a>
         <a href="{% url 'books:show-books' %}" class="px-3 py-3 text-lg font-semibold hover:text-gray-600">Books</a>
         {% if user.is_authenticated %}
@@ -10,13 +13,13 @@
     </div>
     <div class="flex px-4">
         {% if user.is_authenticated %}
-            <a href="{% url 'main:logout' %}" class="px-1 py-1 mx-2 my-1 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Logout</a>
+            <a href="{% url 'main:logout' %}" class="hidden sm:block px-3 py-2 mx-2 my-1 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Logout</a>
             {% if user.extenduser.profile_pict %}
-                <img src="{{user.extenduser.profile_pict.url}}" width="50" height="50" class="rounded-full">
+                <img src="{{user.extenduser.profile_pict}}" width="50" height="50" class="rounded-full w-12 h-12 hidden sm:block">
             {% endif %}
         {% else %}
-            <a href="{% url 'main:signup' %}" class="px-1 py-1 mx-2 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Sign Up</a>
-            <a href="{% url 'main:login' %}" class="px-1 py-1 mx-2 text-lg font-semibold bg-gray-500 text-white rounded hover:bg-teal-700">Log In</a>
+            <a href="{% url 'main:signup' %}" class="hidden sm:block  px-3 py-2 mx-2 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Sign Up</a>
+            <a href="{% url 'main:login' %}" class="hidden sm:block  px-3 py-2 mx-2 text-lg font-semibold bg-gray-500 text-white rounded hover:bg-teal-700">Log In</a>
         {% endif %}
     </div>
 </nav>

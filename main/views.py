@@ -51,8 +51,8 @@ def update_user(request):
     if request.user.is_authenticated:
         user = User.objects.get(id=request.user.id)
         user_pict = extendUser.objects.get(user__id=request.user.id)
-        form = SignUpForm(request.POST or None, request.FILES or None, instance=user)
-        pict_form = PictForm(request.POST or None, request.FILES or None, instance=user_pict)
+        form = SignUpForm(request.POST or None, instance=user)
+        pict_form = PictForm(request.POST or None, instance=user_pict)
         if form.is_valid() and pict_form.is_valid():
             form.save()
             pict_form.save()

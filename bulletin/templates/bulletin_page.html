@@ -24,6 +24,7 @@
                 </div>
             </div>
         </div>
+        
 
         <div class="p-6 flex-grow">
             <!-- Daftar berita di sini -->
@@ -33,15 +34,38 @@
                     <li>
                         <div>
                             <a href="{% url 'bulletin:full-news' bulletin.pk %}" class="py-3 text-lg font-semibold hover:text-gray-600">{{ bulletin.title }}</a>
-                            <p class = "text-justify">{{ bulletin.content|slice:":400" }}...</p>
+                            <p class="text-justify">{{ bulletin.content|slice:":400" }}...</p>
                         </div>
                     </li>
                     {% endfor %}
                 {% else %}
-                    <li class = "text-lg text-red-500">No results matching "{{query}}" .</li>
+                    <li class="text-lg text-red-500 text-center">No results matching "{{ query }}".</li>
                 {% endif %}
             </ul>
+            <br>
+        
+            <!-- Tampilkan tombol-tombol paginasi -->
+            <div class="pagination text-center">
+                <span class="step-links">
+                    {% if bulletins.has_previous %}
+                        <a href="?page=1" class="hover:text-teal-700 hover:font-semibold">&laquo; first</a>
+                        <a href="?page={{ bulletins.previous_page_number }}" class="hover:text-teal-700  hover:font-semibold">previous</a>
+                    {% endif %}
+
+                    <span class="current-page">
+                        <span class = "font-semibold">Page <span class = "text-teal-700 font-bold">{{bulletins.number}}</span> of {{ bulletins.paginator.num_pages }} </span>
+                    </span>
+
+                    {% if bulletins.has_next %}
+                        <a href="?page={{ bulletins.next_page_number }}" class="hover:text-teal-700 hover:font-semibold">next</a>
+                        <a href="?page={{ bulletins.paginator.num_pages }}" class="hover:text-teal-700 hover:font-semibold">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+
+
         </div>
+        
     </div>
 
     <!-- Kumpulan card rekomendasi buku -->
