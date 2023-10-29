@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'header.html' %}
+
+<div class="mt-6 px-6 py-4 bg-slate-100 rounded-xl">
+    <div class="grid grid-cols-10 gap-5">
+
+        <div class="container col-span-3 flex flex-col bg-white border-2 p-4">
+            <a href='#'></a>
+                <div class="p-5 border-b bg-teal-500 rounded-t-lg">
+                    <img src="{{ book.cover_img }}" class="w-36 mx-32">
+                </div>
+                <div class="p-6 bg-white rounded-b-xl h-auto shadow-lg">
+                    <h2 class="text-2xl text-center">{{ book.title }}<h2>
+                    <div class="my-3 grid grid-cols-2 gap-2 text-center">
+                        <p class="text-slate-500"> Author: {{ book.authors }}</p> 
+                        <p class="text-slate-500"> ISBN: {{ book.isbn }}</p>
+                        <p class="text-slate-500"> Publisher: {{ book.publisher }}</p> 
+                        <p class="text-slate-500"> Pub Year: {{ book.pub_year }}</p>     
+                    </div>
+                </div>
+        </div>
+
+        <div class="container col-span-7 flex flex-col bg-white border-2 p-4">
+            <a href="{% url 'reviews:create_review' book_id%}">
+                <button class="block text-white bg-teal-500 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-500 dark:hover:bg-teal-700 dark:focus:ring-teal-800" type="button">
+                    Add Review
+                </button>
+            </a>
+            <div id="review_table" class="row-auto"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function getReviews() {
+        return fetch("{% url 'reviews:get_review_json' book_id%}").then((res) => res.json())
+    }
+
+    async function refreshReviews() {
+        document.getElementById("review_table").innerHTML = ""
+        const reviews = await getReviews()
+        let htmlString = ``
+        reviews.forEach((item) => {
+            htmlString += `<tr>
+                <div class='flex items-center justify-center'>  <div class="rounded-xl border p-5 shadow-md w-11/12 bg-white">
+                    <div class="flex w-full items-center justify-between border-b pb-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-lg font-bold text-slate-700">${item.fields.username}</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 mb-6">
+                        <div class="mb-3 text-xl font-bold">${item.fields.title}</div>
+                        <div class="text-sm text-neutral-600">${item.fields.rating} / 5</div>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between text-slate-500">
+                            <div class="flex space-x-4 md:space-x-8">
+                                <a href="#">
+                                    <button class="flex cursor-pointer items-center transition hover:text-slate-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                        </svg>
+                                        <span>0</span>
+                                    </button>
+                                </a>
+                                <a href="#">
+                                    <button class="flex cursor-pointer items-center transition hover:text-slate-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>                                 
+                                    </button>
+                                </a>
+                                <a href="#" onclick="removeReview(${item.pk})">
+                                    <button id="deleteButton-${item.pk}" class="flex cursor-pointer items-center transition hover:text-slate-600" >
+                                        <span class="mr-2">Delete</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path fill="currentcolor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+                                        </svg>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </tr>` 
+        })
+        document.getElementById("review_table").innerHTML = htmlString
+    }
+    refreshReviews()
+
+    function removeReview(pk) {
+        const data = new FormData()
+        data.append("id", pk)
+        fetch("{% url 'reviews:remove_ajax' %}", {
+            method: "POST",
+            body: data
+        }).then(refreshReviews)
+    }
+
+</script>
+{% endblock content %}
