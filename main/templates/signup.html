@@ -3,35 +3,37 @@
 
 {% block title %}Sign Up{% endblock title %}
 {% block content %}
+<!-- component -->
 
-<div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
-    <h1 class="mb-6 text-3xl">Sign Up</h1>
+<div class="relative min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-teal- bg-no-repeat bg-cover">
+	<div class="absolute bg-teal-500 opacity-60 inset-0 z-0"></div>
+	<div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
+		<div class="text-center">
+			<h2 class="mt-5 text-3xl font-bold text-gray-900">
+				Register
+			</h2>
+			<p class="mt-2 text-sm text-gray-400">Your Journey Begin Here</p>
+		</div>
+        <form class="mt-8 space-y-3" action='#' method="post">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 my-4">
+                <label for="{{ form.username.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Username</label>
+                    <input name="{{ form.username.name }}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="text" placeholder="Enter username">
+            </div>
+            <div class="grid grid-cols-1 my-4">
+                <label for="{{ form.email.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Email</label>
+                    <input name="{{ form.email.name }}"  class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="text" placeholder="Enter email">
+            </div>
+            <div class="grid grid-cols-1 my-4">
+                <label for="{{ form.password1.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Password</label>
+                    <input name="{{ form.password1.name }}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="" placeholder="Enter password">
+            </div>
+            <div class="grid grid-cols-1 my-4">
+                <label for="{{ form.password2.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Re-enter Password</label>
+                    <input name="{{ form.password2.name }}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="" placeholder="Re-enter password">
+            </div>
 
-    <form method="post" action=".">
-        {% csrf_token %}
-
-        <div class="mb-3">
-            <label class="inline-block mb-2">Username</label>
-            <br>
-            {{form.username}}
-        </div>
-        <div class="mb-3">
-            <label class="inline-block mb-2">Email</label>
-            <br>
-            {{form.email}}
-        </div>
-        <div class="mb-3">
-            <label class="inline-block mb-2">Password</label>
-            <br>
-            {{form.password1}}
-        </div>
-        <div class="mb-3">
-            <label class="inline-block mb-2">Repeat Password</label>
-            <br>
-            {{form.password2}}
-        </div>
-
-        {% if form.errors or form.non_field_errors %}
+            {% if form.errors or form.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
                 {% for field in form %}
                     {{ field.errors }}
@@ -39,10 +41,27 @@
 
                 {{ form.non_field_errors }}
             </div>
-        {% endif %}
+            {% endif %}
+            
+            <div>
+                <button type="submit" class="my-5 w-full flex justify-center bg-teal-500 text-gray-100 p-4  rounded-full tracking-wide
+                            font-semibold  active:bg- hover:bg-teal-700 shadow-lg cursor-pointer transition ease-in duration-300">
+                    Register
+                </button>
+            </div>
+        </form>
+        <div class="mt-6 text-center">
+            Already have an account yet? <a href="{% url 'main:login' %}" class="hover:underline text-teal-500">Log In</a>
+          </div>
 
-        <button type="submit" class="py-1 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
-    </form>
+
+	</div>
 </div>
 
+<style>
+	.has-mask {
+		position: absolute;
+		clip: rect(10px, 150px, 130px, 10px);
+	}
+</style>
 {% endblock content %}
