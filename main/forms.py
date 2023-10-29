@@ -5,6 +5,16 @@ from .models import extendUser
 from django.forms.widgets import ClearableFileInput
 
 class SignUpForm(UserCreationForm):
+    username = forms.CharField(
+        error_messages={'required': 'Please provide a username.'}
+    )
+    password1 = forms.CharField(
+        error_messages={'required': 'A password is required.'}
+    )
+    password2 = forms.CharField(
+        error_messages={'required': 'Please confirm the password.'}
+    )
+    
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')

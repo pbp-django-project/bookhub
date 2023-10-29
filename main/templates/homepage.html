@@ -7,8 +7,8 @@
 {% block content %}
 {% include 'header.html' %}
 
-<div class="container mx-auto columns-2">
-    <div class="my-32 text-justify">
+<div class="container mx-auto flex">
+    <div class="p-7 my-32 text-justify">
         <h1 class="text-teal-500 font-bold font-sans text-5xl py-2 -mx-2">Welcome <a href="{% url 'main:update_user' %}" style="color: burlywood;">{{username}}</a>!</h1>
         <h2 class="text-teal-500 font-semibold font-sans text-2xl">Discover - Review - Discuss - Contribute</h2>
         <p class="font-sans py-3 text-slate-600">
@@ -16,18 +16,18 @@
         </p>
     </div>
 
-    <div class="relative">
+    <div class="relative hidden lg:block">
         <img class="mx-16 scale-75" src="{% static 'main/book.svg' %}">
     </div>
 </div>
 
 <div class="py-10">
     <h2 class="py-5 text-teal-500 text-center font-bold font-sans text-4xl">Our Features</h2>
-    <div class="container mx-auto my-6 columns-2">
-        <div class="relative">
-            <img class="mx-16 w-56" src="{% static 'main/search.svg' %}">
-        </div>
-        <div class="text-justify">
+    <div class="container mx-auto my-6 flex">
+
+        <img class="mx-16 w-80 p-7 hidden sm:block" src="{% static 'main/search.svg' %}" >
+
+        <div class="text-justify p-7">
             <h1 class="text-teal-500 font-semibold font-sans text-2xl">Extensive Book Database</h1>
             <p class="text-justify text-slate-600">
                 Our web offers an extensive and diverse database of books from various genres, authors, and time periods. 
@@ -36,11 +36,11 @@
         </div>
     </div>
 
-    <div class="container mx-auto my-6 columns-2">
-        <div class="relative">
-            <img class="mx-16 w-56" src="{% static 'main/recommend.svg' %}">
-        </div>
-        <div class="text-justify">
+    <div class="container mx-auto my-6 flex">
+       
+        <img class="mx-16 w-80 p-7 hidden sm:block" src="{% static 'main/recommend.svg' %}">
+       
+        <div class="text-justify p-7">
             <h1 class="text-teal-500 font-semibold font-sans text-2xl">Book Recommendations</h1>
             <p class="text-justify text-slate-600">
                 Receive personalized book recommendations tailored to your reading preferences. 
@@ -49,11 +49,11 @@
         </div>
     </div>
 
-    <div class="container mx-auto my-6 columns-2">
-        <div class="relative">
-            <img class="mx-16 w-56" src="{% static 'main/bookmark.svg' %}">
-        </div>
-        <div class="text-justify">
+    <div class="container mx-auto my-6 flex">
+       
+        <img class="mx-16 w-80 p-7 hidden sm:block" src="{% static 'main/bookmark.svg' %}">
+      
+        <div class="text-justify p-7">
             <h1 class="text-teal-500 font-semibold font-sans text-2xl">Bookmark and Favorites</h1>
             <p class="text-justify text-slate-600">
                 Bookmark the books that pique your interest and save them for later on our user-friendly books website. 
@@ -63,11 +63,11 @@
         </div>
     </div>
 
-    <div class="container mx-auto my-6 columns-2">
-        <div class="relative">
-            <img class="mx-16 w-56" src="{% static 'main/review.svg' %}">
-        </div>
-        <div class="text-justify">
+    <div class="container mx-auto my-6 flex">
+
+        <img class="mx-16 w-80 p-7 hidden sm:block" src="{% static 'main/review.svg' %}">
+  
+        <div class="text-justify p-7">
             <h1 class="text-teal-500 font-semibold font-sans text-2xl">User Reviews and Ratings</h1>
             <p class="text-justify text-slate-600">
                 Share your thoughts and experiences on the books you've devoured. Leave insightful reviews for fellow 
@@ -78,11 +78,11 @@
         </div>
     </div>
 
-    <div class="container mx-auto my-6 columns-2">
-        <div class="relative">
-            <img class="mx-16 w-56" src="{% static 'main/discuss.svg' %}">
-        </div>
-        <div class="text-justify">
+    <div class="container mx-auto my-6 flex">
+        
+        <img class="mx-16 w-80 p-7 hidden sm:block" src="{% static 'main/discuss.svg' %}">
+      
+        <div class="text-justify p-7">
             <h1 class="text-teal-500 font-semibold font-sans text-2xl">Dynamic Discussion Forum</h1>
             <p class="text-justify text-slate-600">
                 Engage in lively discussions with fellow book enthusiasts in our dynamic discussion forum. 
@@ -92,11 +92,11 @@
         </div>
     </div>
 
-    <div class="container mx-auto my-6 columns-2">
-        <div class="relative">
-            <img class="mx-16 w-56" src="{% static 'main/add.svg' %}">
-        </div>
-        <div class="text-justify">
+    <div class="container mx-auto my-6 flex">
+
+        <img class="mx-16 w-80 p-7 hidden sm:block" src="{% static 'main/add.svg' %}">
+
+        <div class="text-justify p-7">
             <h1 class="text-teal-500 font-semibold font-sans text-2xl">User-Generated Content</h1>
             <p class="text-justify text-slate-600">
                 As a member of our community, you have the power to contribute. 
