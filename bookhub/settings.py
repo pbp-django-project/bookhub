@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bulletin',
     'main',
     'collection',
+    'reviews',
     'django_browser_reload',
     
 ]

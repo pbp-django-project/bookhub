@@ -31,7 +31,7 @@
             <div class="grid grid-cols-2 my-4">
                 <div>
                     <label for="{{ form.publisher.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Publisher</label>
-                        <input name="{{ form.publisher.name }}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="" placeholder="publisher">
+                        <input name="{{ form.publisher.name }}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="" placeholder="ublisher">
                 </div>
                 <div>
                     <label for="{{ form.pub_year.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Publication Year</label>
@@ -41,13 +41,9 @@
             
             
             <div class="grid grid-cols-1 space-y-2">
-                <label for="{{ form.cover_img.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Attach Document</label>
-                <div class="flex items-center justify-center w-full">
-                    <input name="{{ form.cover_img.name }}" type="file" class="file:rounded-lg file:bg-teal-500 file:text-white file:font-semi-bold file:px-8 file:py-2 file:border-none file:-ml-9 file:mr-2
-                    border border-gray-300 px-12 py-2 rounded-lg text-gray-500
-                    "
-                    >
-                </div>
+                <label for="{{ form.cover_img.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Cover Link</label>
+                    <input name="{{ form.cover_img.name }}" type="url" placeholder="urls" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500">
+               
             </div>
                     <p class="text-sm text-gray-300">
                         <span>File type: png, jpg of images</span>
