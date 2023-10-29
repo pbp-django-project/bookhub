@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+    <div class="relative py-3 sm:max-w-xl sm:mx-auto">
+        <div class="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+            <div class="max-w-md mx-auto">
+                <div class="flex items-center space-x-5">
+                    <div class="block pl-4 font-semibold text-xl self-start text-gray-700">
+                        <h5 class="leading-relaxed">Edit your review!</h5>
+                    </div>
+                </div>
+                <div class="divide-y divide-gray-200">
+                    <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="flex flex-col">
+                                <label class="leading-loose" for="username" style="width: 120px; display: inline-block;">Name:</label>
+                                <input type="text" id="username" name="username" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder={{user.username}} required>
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="leading-loose" for="title" style="width: 120px; display: inline-block;">Title:</label>
+                                <input type="text" id="title" name="title" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" placeholder="Title" required>
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="leading-loose" for="rating" style="width: 120px; display: inline-block;">Rating:</label>
+                                <input type="number" id="rating" name="rating" class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" required>
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="leading-loose" for="comment" style="width: 120px; display: inline-block;">Comment:</label>
+                                <textarea id="comment" name="comment" class="px-4 py-8 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600" required></textarea>
+                            </div>
+
+                            <div class="ml-40">
+                                <button type="submit" class="px-12 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded">
+                                    Edit Review
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
