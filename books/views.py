@@ -68,3 +68,6 @@ def get_books(request):
     data = models.Book.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+def get_userbooks(request):
+    data = models.UserBook.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
