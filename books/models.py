@@ -19,12 +19,12 @@ class Book(models.Model):
 
 class UserBook(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255, null=True, blank=True)
-    authors = models.CharField(max_length=255, null=True, blank=True)
-    publisher = models.CharField(max_length=255, null=True, blank=True)
-    pub_year = models.IntegerField(null=True, blank=True)
-    isbn = models.CharField(max_length=255, null=True, blank=True)
-    cover_img = models.ImageField(upload_to="cover_img/") 
+    title = models.CharField(max_length=255, null=True)
+    authors = models.CharField(max_length=255, null=True)
+    publisher = models.CharField(max_length=255, null=True)
+    pub_year = models.IntegerField(null=True)
+    isbn = models.CharField(max_length=255, null=True)
+    cover_img = models.URLField(blank=True, default='https://static.thenounproject.com/png/3674271-200.png') 
     date_added = models.DateField(auto_now_add=True) 
 
     def __str__(self):
