@@ -10,3 +10,5 @@ class Bulletin(models.Model):
     date_published = models.DateTimeField()
     # Tambahkan bidang lain yang Anda perlukan
 
+
+

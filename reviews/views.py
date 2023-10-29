@@ -8,18 +8,24 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg
 
 # Create your views here.
 @login_required(login_url='main:login')
 def show_reviews(request, book_id):
     book = Book.objects.get(pk=book_id)
     reviews = Review.objects.filter(book=book)
+    review_user = Review.objects.filter(book=book, user=request.user)
+    average_rating = Review.objects.aggregate(avg_rating=Avg('rating'))['avg_rating']
     context = {
         'reviews': reviews,
         'book' : book,
         'book_id' : book_id,
         'user': request.user,
-        'users' : User.objects.all()
+        'username' : request.user.username,
+        'users' : User.objects.all(),
+        'average_rating' : average_rating,
+        'review_user' : review_user
     }
     return render(request, "reviews.html", context)
 
@@ -49,7 +55,7 @@ def create_review(request, book_id):
     return render(request, "create_review.html", context)
 
 def details_review(request, review_id):
-    review = Review.objects.get(review_id)
+    review = Review.objects.get(pk=review_id)
     context = {
         'review': review,
         'user' : request.user
@@ -82,9 +88,8 @@ def remove_ajax(request):
     
     return HttpResponseNotFound()
 
-def edit_review(request):
+def edit_review(request, review_id, book_id):
     # Get product berdasarkan ID
-    review_id = request.POST.get("id")
     review = Review.objects.get(pk = review_id)
 
     # Set product sebagai instance dari form
@@ -93,7 +98,7 @@ def edit_review(request):
     if form.is_valid() and request.method == "POST":
         # Simpan form dan kembali ke halaman awal
         form.save()
-        return HttpResponseRedirect(reverse('reviews:show_reviews', args=[review_id]))
+        return HttpResponseRedirect(reverse('reviews:show_reviews', args=[book_id]))
 
     context = {'form': form}
     return render(request, "edit_review.html", context)
