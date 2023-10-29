@@ -72,9 +72,9 @@ document.getElementById('book-search-form').addEventListener('submit', async fun
         if (data && data.length > 0) {
             data.forEach(book => {
                 htmlString += `\n
-                <a href="/reviews/reviews/${book.pk}">
+
                 <div class="bg-white shadow-lg rounded-lg cursor-grab">
-                    <img src="${ book.fields.cover_img }" class="rounded-t-lg w-full h-64 object-cover">
+                    <a href="/reviews/reviews/${book.pk}"><img src="${ book.fields.cover_img }" class="rounded-t-lg w-full h-64 object-cover"></a>
                     <div class="p-4">
                         <h2 class="text-lg font-semibold">${ book.fields.title }</h2>
                         <p class="text-sm">Author: ${ book.fields.authors }</p>
@@ -83,7 +83,7 @@ document.getElementById('book-search-form').addEventListener('submit', async fun
                         <p class="text-sm">Pub Year: ${ book.fields.pub_year }</p>
                     </div>
                 </div>
-                </a>`
+                `
             });
         } else {
             htmlString = `
