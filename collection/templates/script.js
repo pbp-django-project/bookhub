@@ -57,5 +57,15 @@ async function refreshBooks() {
         </div>`
     })
 
-    document.getElementById("weapons_list").innerHTML = htmlString
+    document.getElementById("collection").innerHTML = htmlString
+    collection.forEach((book) => {
+        document.getElementById(`edit-${book.pk}`).onclick = () => {
+        window.location.href = `edit-product/${book.pk}`
+        }
+        document.getElementById(`delete-${book.pk}`).onclick = () => {
+        fetch(`delete/${book.pk}`).then(refreshProducts)
+        }
+    })
 }
+
+refreshProducts()

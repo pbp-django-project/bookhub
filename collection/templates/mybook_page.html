@@ -35,6 +35,12 @@
                 <p class="text-sm">ISBN: {{ book.isbn }}</p>
                 <p class="text-sm">Pub Year: {{ book.pub_year }}</p>
             </div>
+            <div class="relative">
+                
+                <button id="delete-{{ book.pk }}" class="absolute bottom-5 right-4 w-10 h-10 flex justify-center items-center bg-red-500 text-gray-100 rounded-full tracking-wide font-semibold active:bg-red-700 hover:bg-red-700 shadow-lg cursor-pointer transition ease-in duration-300">
+                    -
+                </button>
+            </div>                       
         </div>
         {% endfor %}
     </div>
@@ -46,7 +52,44 @@
 
 
 
-<script>
+<!-- <script>
+
+function refreshProducts() {
+    fetch('URL_TO_YOUR_PRODUCT_DATA') // ganti dengan URL API produk Anda
+        .then(response => response.json()) // mengubah respon menjadi JSON
+        .then(data => {
+            let productContainer = document.getElementById('collection');
+            productContainer.innerHTML = ''; // mengosongkan kontainer produk
+
+            // loop melalui data produk dan membuat elemen HTML untuk setiap produk
+            data.forEach(product => {
+                let productDiv = document.createElement('div');
+                // isi productDiv dengan detail produk
+                // Anda mungkin perlu menyesuaikan ini untuk mencocokkan struktur HTML Anda
+                productDiv.innerHTML = `
+                    <img src="${product.cover_img}">
+                    <h2>${product.title}</h2>
+                    <p>${product.authors}</p>
+                    <p>${product.publisher}</p>
+                    <p>${product.isbn}</p>
+                    <p>${product.pub_year}</p>
+                    <button id="edit-${product.pk}">Edit</button>
+                    <button id="delete-${product.pk}">-</button>
+                `;
+                productContainer.appendChild(productDiv);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+books.forEach((item) => {
+    document.getElementById(`edit-${item.pk}`).onclick = () => {
+    window.location.href = `edit-product/${item.pk}`
+    }
+    document.getElementById(`delete-${item.pk}`).onclick = () => {
+    fetch(`delete/${item.pk}`).then(refreshProducts)
+    }
+})
 
 document.getElementById('book-search-form').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -88,7 +131,107 @@ document.getElementById('book-search-form').addEventListener('submit', async fun
         console.error('Error:', error);
     }
 
+}); -->
+<script>
+const deleteButtons = document.querySelectorAll('[id^="delete-"]');
+
+
+deleteButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const bookId = this.id.split('-')[1];
+
+        fetch(`/collection/delete/${bookId}`, {
+            method: 'DELETE', 
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            
+            if (data.success) {
+                const bookElement = document.getElementById(`delete-${bookId}`).closest('.bg-white');
+                bookElement.remove();
+            } else {
+                
+                console.error('Gagal menghapus buku.');
+            }
+        })
+        .catch(error => {
+            
+            console.error('Terjadi kesalahan:', error);
+        });
+    });
 });
+
+
+// TOMBOL EDIT
+const editButtons = document.querySelectorAll('[id^="edit-"]');
+
+
+editButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const bookId = this.id.split('-')[1];
+
+        
+        fetch(`/collection/get-book/${bookId}`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            if (data.success) {
+                
+                const editForm = document.createElement('form');
+                editForm.innerHTML = `
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" value="${data.book.title}" required><br>
+                    <label for="authors">Authors:</label>
+                    <input type="text" id="authors" name="authors" value="${data.book.authors}" required><br>
+                    <label for="publisher">Publisher:</label>
+                    <input type="text" id="publisher" name="publisher" value="${data.book.publisher}" required><br>
+                    <label for="isbn">ISBN:</label>
+                    <input type="text" id="isbn" name="isbn" value="${data.book.isbn}" required><br>
+                    <label for="pubYear">Pub Year:</label>
+                    <input type="text" id="pubYear" name="pubYear" value="${data.book.pubYear}" required><br>
+                    <button type="submit">Submit</button>
+                `;
+
+                
+                editForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    fetch(`/edit-book/${bookId}`, {
+                        method: 'PUT',
+                        body: formData
+                    })
+                    .then(response => response.json()) 
+                    .then(data => {
+                        // Handle respons dari server (contoh: menampilkan pesan sukses/kesalahan)
+                        if (data.success) {
+                            console.log('Perubahan berhasil disimpan.');
+                        } else {
+                            console.error('Gagal menyimpan perubahan.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Terjadi kesalahan:', error);
+                    });
+                });
+
+                // Ganti elemen buku dengan formulir pengeditan
+                const bookElement = document.getElementById(`edit-${bookId}`).closest('.bg-white');
+                bookElement.replaceWith(editForm);
+            } else {
+                // Handle kesalahan jika data buku tidak berhasil diterima dari server
+                console.error('Gagal mendapatkan data buku.');
+            }
+        })
+        .catch(error => {
+            // Handle kesalahan jaringan atau kesalahan server
+            console.error('Terjadi kesalahan:', error);
+        });
+    });
+});
+
 </script>
 {% include 'footer.html' %}
 {% endblock content %}
