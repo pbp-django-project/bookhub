@@ -43,7 +43,7 @@ Modul Buletin literasi : berisi tentang berita literasi atau artikel literasi da
 
 Modul Review : Berisi halaman untuk me-review buku yang telah dibaca, dengan pemberian komentar atau ulasan dan juga pemberian rating. Hasil review dapat dilihat oleh pengguna lain saat melihat informasi buku tersebut. (Nano)   
 
-Modul Koleksi Pengguna: Modul yang memungkinkan pengguna membuat “board” seperti di Pinterest dimana pengguna dapat membuat folder baru dengan nama custom dan mengisinya dengan buku-buku sesuai kelompoknya, misalnya ada folder buku yang disukai, buku yang akan dibaca, buku yang harus dibaca sebelum ujian, dan lain-lain (Mario)
+Modul Koleksi Pengguna: Modul yang memungkinkan pengguna berkontribusi dengan menambahkan buku mereka sendiri sebagai koleksi bersama, terdapat fitur untuk menghapus buku yang sudah ditambahkan (Mario)
 
 
 
