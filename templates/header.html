@@ -11,7 +11,7 @@
         {% if user.is_authenticated %}
             <a href="{% url 'main:logout' %}" class="px-1 py-1 mx-2 my-1 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Logout</a>
             {% if user.extenduser.profile_pict %}
-                <img src="{{user.extenduser.profile_pict.url}}" width="50" height="50" class="rounded-full">
+                <img src="{{user.extenduser.profile_pict}}" width="50" height="50" class="rounded-full w-12 h-12">
             {% endif %}
         {% else %}
             <a href="{% url 'main:signup' %}" class="px-1 py-1 mx-2 text-lg font-semibold bg-teal-500 text-white rounded hover:bg-teal-700">Sign Up</a>
