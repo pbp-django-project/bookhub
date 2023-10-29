@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'books',
     'bulletin',
     'main',
+    'collection',
     'reviews',
     'django_browser_reload',
     
