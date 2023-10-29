@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Books{% endblock title %}
+
+{% block content %}
+{% include 'header.html' %}
+
+
+<div class="flex items-center justify-center pt-5">
+    <form method="get" id="book-search-form">
+        {% csrf_token %}
+        <select name="books" id="books-filter" class="p-2 rounded-md border-gray-300 border-b-2">
+            <option value="all">All</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="publisher">Publisher</option>
+        </select>
+
+        <input id="search-input" type="text" name="q" placeholder="Search a book" class="border-b-2 border-gray-300 bg-white h-10 pr-60 pl-4 rounded-md shadow-sm text-sm ml-1">
+        <button type="submit" class="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-md shadow-sm border-b-2 border-gray-300">search</button>
+    </form>
+
+</div>
+
+
+<div class="bg-gray-100 p-6 pt-10">
+    <div id="collection" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        {% for book in books %}
+        <div class="bg-white shadow-lg rounded-lg cursor-grab">
+            <img src="{{ book.cover_img }}" class="rounded-t-lg w-full h-64 object-cover">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold">{{ book.title }}</h2>
+                <p class="text-sm">Author: {{ book.authors }}</p>
+                <p class="text-sm">Publisher: {{ book.publisher }}</p>
+                <p class="text-sm">ISBN: {{ book.isbn }}</p>
+                <p class="text-sm">Pub Year: {{ book.pub_year }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<a href={% url 'collection:add-collection' %} class="fixed right-0 bottom-0 w-14 h-14 rounded-full bg-teal-500 hover:bg-teal-700 text-white text-center text-5xl font-bold m-10">+</a>
+
+
+
+
+<script>
+
+document.getElementById('book-search-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const searchQuery = document.getElementById('search-input').value;
+    const filter = document.getElementById('books-filter').value;
+
+    try {
+        // Use the Fetch API to send an AJAX request to the Django view
+        const response = await fetch(`search/?q=${searchQuery}&filter=${filter}`);
+
+        // Parse the response as JSON
+        const data = await response.json();
+
+        // Get a reference to the HTML element where search results will be displayed
+        const searchResults = document.getElementById('books');
+
+        // Clear previous results
+        searchResults.innerHTML = '';
+        let htmlString = ``
+        // Loop through the books in the response and display them as list items
+        data.forEach(book => {
+            htmlString += `\n
+            <div class="bg-white shadow-lg rounded-lg cursor-grab">
+                <img src="${ book.fields.cover_img }" class="rounded-t-lg w-full h-64 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg font-semibold">${ book.fields.title }</h2>
+                    <p class="text-sm">Author: ${ book.fields.authors }</p>
+                    <p class="text-sm">Publisher: ${ book.fields.publisher }</p>
+                    <p class="text-sm">ISBN: ${ book.fields.isbn }</p>
+                    <p class="text-sm">Pub Year: ${ book.fields.pub_year }</p>
+                </div>
+            </div>`
+        });
+
+        searchResults.innerHTML = htmlString;
+    } catch (error) {
+        // Handle any errors that may occur during the AJAX request
+        console.error('Error:', error);
+    }
+
+});
+</script>
+{% include 'footer.html' %}
+{% endblock content %}
