@@ -1,2 +1,2 @@
-release: python manage.py makemigrations && python manage.py migrate --noinput
+release: django-admin migrate --noinput
 web: gunicorn bookhub.wsgi
