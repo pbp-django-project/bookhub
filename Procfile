@@ -1,2 +1,2 @@
-release: django-admin migrate --noinput
+release: python manage.py migrate --noinput
 web: gunicorn bookhub.wsgi
