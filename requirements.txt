@@ -7,4 +7,3 @@ urllib3
 django_browser_reload
 Pillow
 django-environ
-whitenoise
