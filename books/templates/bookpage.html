@@ -9,27 +9,27 @@
 <div class="flex items-center justify-center pt-5">
     <form method="get" id="book-search-form">
         {% csrf_token %}
-        <select name="books" id="books-filter" class="p-2 rounded-md border-gray-300 border-b-2">
+        <select name="books" id="books-filter" class="p-2 rounded-md border-gray-300 border-b-2 text-sm">
             <option value="all">All</option>
             <option value="title">Title</option>
             <option value="author">Author</option>
             <option value="publisher">Publisher</option>
         </select>
 
-        <input id="search-input" type="text" name="q" placeholder="Search a book" class="border-b-2 border-gray-300 bg-white h-10 pr-60 pl-4 rounded-md shadow-sm text-sm ml-1">
-        <button type="submit" class="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-md shadow-sm border-b-2 border-gray-300">search</button>
+        <input id="search-input" type="text" name="q" placeholder="Search a book" class="border-b-2 border-gray-300 bg-white h-10 pr-36 pl-4 rounded-md shadow-sm text-sm ml-1 sm:pr-60">
+        <button type="submit" class="px-2 text-sm sm:px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-md shadow-sm border-b-2 border-gray-300">search</button>
     </form>
 
 </div>
 
 
-<div class="bg-gray-100 p-6 pt-10">
+<div class="p-6 pt-10">
     <div id="books" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {% for book in books %}
         <a href="{% url 'books:show-reviews' book.pk %}">
         <div class="bg-white shadow-lg rounded-lg cursor-grab">
             <img src="{{ book.cover_img }}" class="rounded-t-lg w-full h-64 object-cover">
-            <div class="p-4">
+            <div class="p-4 border-t-2 border-gray-200 ">
                 <h2 class="text-lg font-semibold">{{ book.title }}</h2>
                 <p class="text-sm">Author: {{ book.authors }}</p>
                 <p class="text-sm">Publisher: {{ book.publisher }}</p>
@@ -70,19 +70,32 @@ document.getElementById('book-search-form').addEventListener('submit', async fun
         searchResults.innerHTML = '';
         let htmlString = ``
         // Loop through the books in the response and display them as list items
-        data.forEach(book => {
-            htmlString += `\n
-            <div class="bg-white shadow-lg rounded-lg cursor-grab">
-                <img src="${ book.fields.cover_img }" class="rounded-t-lg w-full h-64 object-cover">
-                <div class="p-4">
-                    <h2 class="text-lg font-semibold">${ book.fields.title }</h2>
-                    <p class="text-sm">Author: ${ book.fields.authors }</p>
-                    <p class="text-sm">Publisher: ${ book.fields.publisher }</p>
-                    <p class="text-sm">ISBN: ${ book.fields.isbn }</p>
-                    <p class="text-sm">Pub Year: ${ book.fields.pub_year }</p>
+        if (data && data.length > 0) {
+            data.forEach(book => {
+                htmlString += `\n
+                <div class="bg-white shadow-lg rounded-lg cursor-grab">
+                    <img src="${ book.fields.cover_img }" class="rounded-t-lg w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h2 class="text-lg font-semibold">${ book.fields.title }</h2>
+                        <p class="text-sm">Author: ${ book.fields.authors }</p>
+                        <p class="text-sm">Publisher: ${ book.fields.publisher }</p>
+                        <p class="text-sm">ISBN: ${ book.fields.isbn }</p>
+                        <p class="text-sm">Pub Year: ${ book.fields.pub_year }</p>
+                    </div>
+                </div>`
+            });
+        } else {
+            htmlString = `
+            <div class="text-center items-center pb-20 col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5">
+                <div class="flex justify-center items-center pt-12">
+                    <img class=" w-56" src="{% static 'books/not_found.svg' %}">
                 </div>
-            </div>`
-        });
+                <h1 class="font-bold text-4xl xl:text-7xl lg:text-6xl md:text-5xl mt-10">Book not found</h1>
+                <h2 class="text-gray-400 font-medium text-md md:text-xl lg:text-2xl mt-8">It seems that the book you are looking for is not yet in our database</h2>
+            </div>
+            
+            `
+        }
 
         searchResults.innerHTML = htmlString;
     } catch (error) {
