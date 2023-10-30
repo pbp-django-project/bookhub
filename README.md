@@ -5,7 +5,7 @@ Mariano Gerardus Senduk - 2206814236 - nano141004
 Shirin zarqaa rabbaanii arham - 2206081964 - shirinzarqaa  
 Mario Michael Jeremy Sitanggang - 2206828626 - mariomichael  
 
-**Nama Web App**: BookHub 
+**Nama Web App**: BookHub       
 **Url PaaS**: bookhub-f06-tk.pbp.cs.ui.ac.id     
 
 **Deskripsi Singkat**:
