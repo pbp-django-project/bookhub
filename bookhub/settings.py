@@ -104,7 +104,7 @@ DATABASES = {
 if PRODUCTION:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'railway',
             'USER': 'postgres',
             'PASSWORD': '6FFCfdEc33eBB*GG5*FDADc35gDb4b6d',
