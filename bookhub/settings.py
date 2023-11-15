@@ -103,15 +103,9 @@ DATABASES = {
 
 if PRODUCTION:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'railway',
-            'USER': 'postgres',
-            'PASSWORD': '6FFCfdEc33eBB*GG5*FDADc35gDb4b6d',
-            'HOST': 'roundhouse.proxy.rlwy.net',
-            'PORT': '46530',
-        }
+        'default': env.db('DATABASE_URL')
     }
+    DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
