@@ -69,6 +69,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'bookhub.urls'
+CSRF_TRUSTED_ORIGINS = ['https://bookhub.up.railway.app/']
 
 TEMPLATES = [
     {
@@ -94,8 +95,12 @@ WSGI_APPLICATION = 'bookhub.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': '6FFCfdEc33eBB*GG5*FDADc35gDb4b6d',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '46530',
     }
 }
 
@@ -151,4 +156,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-CSRF_TRUSTED_ORIGINS = ['https://bookhub.up.railway.app/']
