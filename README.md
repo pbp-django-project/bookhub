@@ -6,7 +6,8 @@ Shirin zarqaa rabbaanii arham - 2206081964 - shirinzarqaa
 Mario Michael Jeremy Sitanggang - 2206828626 - mariomichael  
 
 **Nama Web App**: BookHub       
-**Url PaaS**: bookhub-f06-tk.pbp.cs.ui.ac.id     
+**Url PaaS**: bookhub-f06-tk.pbp.cs.ui.ac.id  
+**Railway**: bookhub.up.railway.app   
 
 **Deskripsi Singkat**:
 "BookHub" adalah sebuah platform inovatif yang bertujuan untuk menginspirasi dan meningkatkan minat dalam membaca buku. Platform ini menawarkan berbagai fitur interaktif yang dirancang untuk menghubungkan pengguna dengan buku-buku yang mereka gemarii, penulis yang mereka kagumi, dan komunitas literasi yang mereka hormati. Dengan fitur pencarian buku terperinci, pengguna dapat dengan mudah menemukan buku berdasarkan berbagai kriteria, sambil menjelajahi ulasan pengguna dan rekomendasi yang berguna. Pustaka Pribadi memungkinkan pengguna untuk mengatur daftar buku yang mereka baca, memberikan peringkat, dan berbagi ulasan dengan komunitas, sementara Buletin Literasi memberikan akses ke berita terkini dan artikel tentang dunia literasi. Dengan "BookHub," kami mengundang semua pecinta buku untuk menjelajahi, berinteraksi, dan berbagi kecintaan mereka pada literasi.
