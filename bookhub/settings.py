@@ -153,7 +153,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-CSRF_TRUSTED_ORIGINS = ['https://bookhub.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://bookhub.up.railway.app/', 'https://bookhub-f06-tk.pbp.cs.ui.ac.id']
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
