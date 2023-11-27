@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Books{% endblock title %}
+
+{% block content %}
+{% include 'header.html' %}
+
+
+<div class="flex items-center justify-center pt-5">
+    <form method="get" id="book-search-form">
+        {% csrf_token %}
+        <select name="books" id="books-filter" class="p-2 rounded-md border-gray-300 border-b-2">
+            <option value="all">All</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="publisher">Publisher</option>
+        </select>
+
+        <input id="search-input" type="text" name="q" placeholder="Search a book" class="border-b-2 border-gray-300 bg-white h-10 pr-60 pl-4 rounded-md shadow-sm text-sm ml-1">
+        <button type="submit" class="px-4 py-2 bg-teal-500 text-white hover:bg-teal-700 rounded-md shadow-sm border-b-2 border-gray-300">search</button>
+    </form>
+
+</div>
+
+
+<div class="bg-gray-100 p-6 pt-10">
+    <div id="collection" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        {% for book in books %}
+        <div class="bg-white shadow-lg rounded-lg cursor-grab">
+            <img src="{{ book.cover_img }}" class="rounded-t-lg w-full h-64 object-cover">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold">{{ book.title }}</h2>
+                <p class="text-sm">Author: {{ book.authors }}</p>
+                <p class="text-sm">Publisher: {{ book.publisher }}</p>
+                <p class="text-sm">ISBN: {{ book.isbn }}</p>
+                <p class="text-sm">Pub Year: {{ book.pub_year }}</p>
+            </div>
+            <div class="relative">
+                
+                <button id="delete-{{ book.pk }}" class="absolute bottom-5 right-4 w-10 h-10 flex justify-center items-center bg-red-500 text-gray-100 rounded-full tracking-wide font-semibold active:bg-red-700 hover:bg-red-700 shadow-lg cursor-pointer transition ease-in duration-300">
+                    -
+                </button>
+            </div>                       
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<a href={% url 'collection:add-collection' %} class="fixed right-0 bottom-0 w-14 h-14 rounded-full bg-teal-500 hover:bg-teal-700 text-white text-center text-5xl font-bold m-10">+</a>
+
+
+
+
+<!-- <script>
+
+function refreshProducts() {
+    fetch('URL_TO_YOUR_PRODUCT_DATA') // ganti dengan URL API produk Anda
+        .then(response => response.json()) // mengubah respon menjadi JSON
+        .then(data => {
+            let productContainer = document.getElementById('collection');
+            productContainer.innerHTML = ''; // mengosongkan kontainer produk
+
+            // loop melalui data produk dan membuat elemen HTML untuk setiap produk
+            data.forEach(product => {
+                let productDiv = document.createElement('div');
+                // isi productDiv dengan detail produk
+                // Anda mungkin perlu menyesuaikan ini untuk mencocokkan struktur HTML Anda
+                productDiv.innerHTML = `
+                    <img src="${product.cover_img}">
+                    <h2>${product.title}</h2>
+                    <p>${product.authors}</p>
+                    <p>${product.publisher}</p>
+                    <p>${product.isbn}</p>
+                    <p>${product.pub_year}</p>
+                    <button id="edit-${product.pk}">Edit</button>
+                    <button id="delete-${product.pk}">-</button>
+                `;
+                productContainer.appendChild(productDiv);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+books.forEach((item) => {
+    document.getElementById(`edit-${item.pk}`).onclick = () => {
+    window.location.href = `edit-product/${item.pk}`
+    }
+    document.getElementById(`delete-${item.pk}`).onclick = () => {
+    fetch(`delete/${item.pk}`).then(refreshProducts)
+    }
+})
+
+document.getElementById('book-search-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const searchQuery = document.getElementById('search-input').value;
+    const filter = document.getElementById('books-filter').value;
+
+    try {
+        // Use the Fetch API to send an AJAX request to the Django view
+        const response = await fetch(`search/?q=${searchQuery}&filter=${filter}`);
+
+        // Parse the response as JSON
+        const data = await response.json();
+
+        // Get a reference to the HTML element where search results will be displayed
+        const searchResults = document.getElementById('books');
+
+        // Clear previous results
+        searchResults.innerHTML = '';
+        let htmlString = ``
+        // Loop through the books in the response and display them as list items
+        data.forEach(book => {
+            htmlString += `\n
+            <div class="bg-white shadow-lg rounded-lg cursor-grab">
+                <img src="${ book.fields.cover_img }" class="rounded-t-lg w-full h-64 object-cover">
+                <div class="p-4">
+                    <h2 class="text-lg font-semibold">${ book.fields.title }</h2>
+                    <p class="text-sm">Author: ${ book.fields.authors }</p>
+                    <p class="text-sm">Publisher: ${ book.fields.publisher }</p>
+                    <p class="text-sm">ISBN: ${ book.fields.isbn }</p>
+                    <p class="text-sm">Pub Year: ${ book.fields.pub_year }</p>
+                </div>
+            </div>`
+        });
+
+        searchResults.innerHTML = htmlString;
+    } catch (error) {
+        // Handle any errors that may occur during the AJAX request
+        console.error('Error:', error);
+    }
+
+}); -->
+<script>
+const deleteButtons = document.querySelectorAll('[id^="delete-"]');
+
+
+deleteButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const bookId = this.id.split('-')[1];
+
+        fetch(`/collection/delete/${bookId}`, {
+            method: 'DELETE', 
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            
+            if (data.success) {
+                const bookElement = document.getElementById(`delete-${bookId}`).closest('.bg-white');
+                bookElement.remove();
+            } else {
+                
+                console.error('Gagal menghapus buku.');
+            }
+        })
+        .catch(error => {
+            
+            console.error('Terjadi kesalahan:', error);
+        });
+    });
+});
+
+
+// TOMBOL EDIT
+const editButtons = document.querySelectorAll('[id^="edit-"]');
+
+
+editButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const bookId = this.id.split('-')[1];
+
+        
+        fetch(`/collection/get-book/${bookId}`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            if (data.success) {
+                
+                const editForm = document.createElement('form');
+                editForm.innerHTML = `
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" value="${data.book.title}" required><br>
+                    <label for="authors">Authors:</label>
+                    <input type="text" id="authors" name="authors" value="${data.book.authors}" required><br>
+                    <label for="publisher">Publisher:</label>
+                    <input type="text" id="publisher" name="publisher" value="${data.book.publisher}" required><br>
+                    <label for="isbn">ISBN:</label>
+                    <input type="text" id="isbn" name="isbn" value="${data.book.isbn}" required><br>
+                    <label for="pubYear">Pub Year:</label>
+                    <input type="text" id="pubYear" name="pubYear" value="${data.book.pubYear}" required><br>
+                    <button type="submit">Submit</button>
+                `;
+
+                
+                editForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    fetch(`/edit-book/${bookId}`, {
+                        method: 'PUT',
+                        body: formData
+                    })
+                    .then(response => response.json()) 
+                    .then(data => {
+                        // Handle respons dari server (contoh: menampilkan pesan sukses/kesalahan)
+                        if (data.success) {
+                            console.log('Perubahan berhasil disimpan.');
+                        } else {
+                            console.error('Gagal menyimpan perubahan.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Terjadi kesalahan:', error);
+                    });
+                });
+
+                // Ganti elemen buku dengan formulir pengeditan
+                const bookElement = document.getElementById(`edit-${bookId}`).closest('.bg-white');
+                bookElement.replaceWith(editForm);
+            } else {
+                // Handle kesalahan jika data buku tidak berhasil diterima dari server
+                console.error('Gagal mendapatkan data buku.');
+            }
+        })
+        .catch(error => {
+            // Handle kesalahan jaringan atau kesalahan server
+            console.error('Terjadi kesalahan:', error);
+        });
+    });
+});
+
+</script>
+{% include 'footer.html' %}
+{% endblock content %}

@@ -26,9 +26,8 @@
 <div class="p-6 pt-10">
     <div id="books" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {% for book in books %}
-        <a href="{% url 'books:show-reviews' book.pk %}">
         <div class="bg-white shadow-lg rounded-lg cursor-grab">
-            <img src="{{ book.cover_img }}" class="rounded-t-lg w-full h-64 object-cover">
+            <a href="{% url 'books:show-reviews' book.pk %}"><img src="{{ book.cover_img }}" class="rounded-t-lg w-full h-64 object-cover"></a>
             <div class="p-4 border-t-2 border-gray-200 ">
                 <h2 class="text-lg font-semibold">{{ book.title }}</h2>
                 <p class="text-sm">Author: {{ book.authors }}</p>
@@ -37,7 +36,7 @@
                 <p class="text-sm">Pub Year: {{ book.pub_year }}</p>
             </div>
         </div>
-        </a>
+
         {% endfor %}
     </div>
 </div>
@@ -73,8 +72,9 @@ document.getElementById('book-search-form').addEventListener('submit', async fun
         if (data && data.length > 0) {
             data.forEach(book => {
                 htmlString += `\n
+
                 <div class="bg-white shadow-lg rounded-lg cursor-grab">
-                    <img src="${ book.fields.cover_img }" class="rounded-t-lg w-full h-64 object-cover">
+                    <a href="/reviews/reviews/${book.pk}"><img src="${ book.fields.cover_img }" class="rounded-t-lg w-full h-64 object-cover"></a>
                     <div class="p-4">
                         <h2 class="text-lg font-semibold">${ book.fields.title }</h2>
                         <p class="text-sm">Author: ${ book.fields.authors }</p>
@@ -82,7 +82,8 @@ document.getElementById('book-search-form').addEventListener('submit', async fun
                         <p class="text-sm">ISBN: ${ book.fields.isbn }</p>
                         <p class="text-sm">Pub Year: ${ book.fields.pub_year }</p>
                     </div>
-                </div>`
+                </div>
+                `
             });
         } else {
             htmlString = `

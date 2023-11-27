@@ -5,7 +5,9 @@ Mariano Gerardus Senduk - 2206814236 - nano141004
 Shirin zarqaa rabbaanii arham - 2206081964 - shirinzarqaa  
 Mario Michael Jeremy Sitanggang - 2206828626 - mariomichael  
 
-**Nama Web App**: BookHub  
+**Nama Web App**: BookHub       
+**Url PaaS**: bookhub-f06-tk.pbp.cs.ui.ac.id  
+**Railway**: bookhub.up.railway.app   
 
 **Deskripsi Singkat**:
 "BookHub" adalah sebuah platform inovatif yang bertujuan untuk menginspirasi dan meningkatkan minat dalam membaca buku. Platform ini menawarkan berbagai fitur interaktif yang dirancang untuk menghubungkan pengguna dengan buku-buku yang mereka gemarii, penulis yang mereka kagumi, dan komunitas literasi yang mereka hormati. Dengan fitur pencarian buku terperinci, pengguna dapat dengan mudah menemukan buku berdasarkan berbagai kriteria, sambil menjelajahi ulasan pengguna dan rekomendasi yang berguna. Pustaka Pribadi memungkinkan pengguna untuk mengatur daftar buku yang mereka baca, memberikan peringkat, dan berbagi ulasan dengan komunitas, sementara Buletin Literasi memberikan akses ke berita terkini dan artikel tentang dunia literasi. Dengan "BookHub," kami mengundang semua pecinta buku untuk menjelajahi, berinteraksi, dan berbagi kecintaan mereka pada literasi.
@@ -43,7 +45,7 @@ Modul Buletin literasi : berisi tentang berita literasi atau artikel literasi da
 
 Modul Review : Berisi halaman untuk me-review buku yang telah dibaca, dengan pemberian komentar atau ulasan dan juga pemberian rating. Hasil review dapat dilihat oleh pengguna lain saat melihat informasi buku tersebut. (Nano)   
 
-Modul Koleksi Pengguna: Modul yang memungkinkan pengguna membuat “board” seperti di Pinterest dimana pengguna dapat membuat folder baru dengan nama custom dan mengisinya dengan buku-buku sesuai kelompoknya, misalnya ada folder buku yang disukai, buku yang akan dibaca, buku yang harus dibaca sebelum ujian, dan lain-lain (Mario)
+Modul Koleksi Pengguna: Modul yang memungkinkan pengguna berkontribusi dengan menambahkan buku mereka sendiri sebagai koleksi bersama, terdapat fitur untuk menghapus buku yang sudah ditambahkan (Mario)
 
 
 

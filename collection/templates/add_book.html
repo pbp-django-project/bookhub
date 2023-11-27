@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add{% endblock title %}
+
+{% block content %}
+<!-- component -->
+
+<div class="relative min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-teal- bg-no-repeat bg-cover">
+	<div class="absolute bg-teal-500 opacity-60 inset-0 z-0"></div>
+	<div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
+		<div class="text-center">
+			<h2 class="mt-5 text-3xl font-bold text-gray-900">
+				Upload Books!
+			</h2>
+			<p class="mt-2 text-sm text-gray-400">Add Your Own Forum</p>
+		</div>
+        <form class="mt-8 space-y-3" action='{% url 'collection:add-collection' %}' method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 my-4">
+                <label for="{{ form.title.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Title</label>
+                    <input name="{{ form.title.name }}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="text" placeholder="title">
+            </div>
+            <div class="grid grid-cols-1 my-4">
+                <label for="{{ form.authors.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Authors</label>
+                    <input name="{{ form.authors.name }}"  class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="text" placeholder="authors">
+            </div>
+            <div class="grid grid-cols-1 my-4">
+                <label for="{{ form.isbn.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">ISBN</label>
+                    <input name="{{ form.isbn.name }}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="" placeholder="0xxxxxxxx">
+            </div>
+            <div class="grid grid-cols-2 my-4">
+                <div>
+                    <label for="{{ form.publisher.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Publisher</label>
+                        <input name="{{ form.publisher.name }}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="" placeholder="publisher">
+                </div>
+                <div>
+                    <label for="{{ form.pub_year.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Publication Year</label>
+                        <input name="{{ form.pub_year.name }}" class="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500" type="" placeholder="yy">
+                </div>
+            </div>
+            
+            
+            <div class="grid grid-cols-1 space-y-2">
+                <label for="{{ form.cover_img.id_for_label }}" class="text-sm font-bold text-gray-500 tracking-wide">Attach Document</label>
+                <div class="flex items-center justify-center w-full">
+                    <input name="{{ form.cover_img.name }}" type="file" class="file:rounded-lg file:bg-teal-500 file:text-white file:font-semi-bold file:px-8 file:py-2 file:border-none file:-ml-9 file:mr-2
+                    border border-gray-300 px-12 py-2 rounded-lg text-gray-500
+                    "
+                    >
+                </div>
+            </div>
+                    <p class="text-sm text-gray-300">
+                        <span>File type: png, jpg of images</span>
+                    </p>
+            <div>
+                <button type="submit" class="my-5 w-full flex justify-center bg-teal-500 text-gray-100 p-4  rounded-full tracking-wide
+                            font-semibold  active:bg- hover:bg-teal-700 shadow-lg cursor-pointer transition ease-in duration-300">
+                    Upload
+                </button>
+            </div>
+        </form>
+	</div>
+</div>
+
+<style>
+	.has-mask {
+		position: absolute;
+		clip: rect(10px, 150px, 130px, 10px);
+	}
+</style>
+{% endblock content %}
