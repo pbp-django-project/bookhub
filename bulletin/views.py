@@ -71,4 +71,4 @@ def search_bulletin(request):
 def show_json(request):
     data = Bulletin.objects.all()
     serialized_data = serializers.serialize("json", data)
-    return HttpResponse(serialized_data, content_type="applcation/json")
+    return HttpResponse(serialized_data, content_type="application/json")
