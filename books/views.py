@@ -5,6 +5,7 @@ from django.core import serializers
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from itertools import chain
 from . import models
 from . import forms
@@ -88,9 +89,11 @@ def get_userbooks(request):
 @csrf_exempt
 def add_books_mobile(request):
     if request.method == 'POST':
-        user = User.objects.get(username=data["Username"])
         data = json.loads(request.body)
-        print(user)
+        print(data["username"])
+        user = User.objects.get(username=data["username"])
+        print(user.username)
+
 
         add_books = models.UserBook.objects.create(
             user = request.user,
