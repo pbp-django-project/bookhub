@@ -17,6 +17,15 @@ def show_books(request):
     }
     return render(request, "bookpage.html", context)
 
+
+def show_json_b_by_id(request, id):
+    books = models.Book.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", books), content_type="application/json")
+
+def show_json_ub_by_id(request, id):
+    books = models.UserBook.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", books), content_type="application/json")
+
 def search_books(request):
     search = forms.SearchForm(request.GET)
     search_filter = request.GET.get('filter', 'all')

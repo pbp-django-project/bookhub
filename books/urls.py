@@ -12,4 +12,6 @@ urlpatterns = [
     path("search/", views.search_books, name='search-books'),
     path("userbook-json/", views.get_userbooks, name='get-userbooks'),
     path("reviews/<int:book_id>", show_reviews, name='show-reviews'),
+    path("book-id/<int:id>", views.show_json_b_by_id, name='book-json'),
+    path("userbook-id/<int:id>", views.show_json_ub_by_id, name='userbook-json'),
 ]
