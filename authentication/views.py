@@ -5,7 +5,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 
-userr = None
 @csrf_exempt
 def login(request):
     username = request.POST['username']
@@ -14,7 +13,6 @@ def login(request):
     if user is not None:
         if user.is_active:
             auth_login(request, user)
-            userr = user
             # Status login sukses.
             return JsonResponse({
                 "username": user.username,
@@ -82,16 +80,10 @@ def register(request):
 def update_user_flutter(request):
     if request.method == 'POST':
         pict = request.POST.get('pict')
-        password = request.POST.get('pass')
-        print(pict)
-        print(password)
 
-        if (pict != "" and password != ""):
-            user = User.objects.get(username=request.user.username)
-            if (pict != ""):
-                extendUser.objects.filter(user=user).update(profile_pict=pict)
-            if (password != ""):
-                User.objects.filter(username=request.user.username).update(password=password)
+        user = User.objects.get(username=request.user.username)
+        if (pict != ""):
+            extendUser.objects.filter(user=user).update(profile_pict=pict)
             return JsonResponse({
                 "status": True,
                 "message": "Update successful!"
