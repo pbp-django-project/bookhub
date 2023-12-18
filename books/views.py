@@ -1,11 +1,14 @@
+import json
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from itertools import chain
 from . import models
 from . import forms
+from django.contrib.auth.models import User
 
 
 def show_books(request):
@@ -80,3 +83,27 @@ def get_books(request):
 def get_userbooks(request):
     data = models.UserBook.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+
+@csrf_exempt
+def add_books_mobile(request):
+    if request.method == 'POST':
+        user = User.objects.get(username=request.user.username)
+        data = json.loads(request.body)
+        print(user)
+
+        add_books = models.UserBook.objects.create(
+            user = user,
+            title = data["title"],
+            authors = data["authors"],
+            publisher = data["publisher"],
+            pub_year = int(data["pub_year"]),
+            isbn = data["isbn"],
+            cover_img = data["cover_img"]
+        )
+
+        add_books.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
