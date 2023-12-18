@@ -82,11 +82,16 @@ def register(request):
 def update_user_flutter(request):
     if request.method == 'POST':
         pict = request.POST.get('pict')
+        password = request.POST.get('pass')
         print(pict)
+        print(password)
 
-        if (pict != ""):
+        if (pict != "" and password != ""):
             user = User.objects.get(username=request.user.username)
-            extendUser.objects.filter(user=user).update(profile_pict=pict)
+            if (pict != ""):
+                extendUser.objects.filter(user=user).update(profile_pict=pict)
+            if (password != ""):
+                User.objects.filter(username=request.user.username).update(password=password)
             return JsonResponse({
                 "status": True,
                 "message": "Update successful!"
