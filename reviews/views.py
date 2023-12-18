@@ -1,8 +1,9 @@
+import json
 from django.shortcuts import render
 from reviews.models import Review
 from books.models import Book
 from reviews.forms import ReviewForm
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.core import serializers
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -36,7 +37,7 @@ def show_json(request):
 def get_review_json(request, book_id):
     book = Book.objects.get(pk=book_id)
     reviews = Review.objects.filter(book=book)
-    return HttpResponse(serializers.serialize('json', reviews))
+    return HttpResponse(serializers.serialize('json', reviews), content_type="application/json")
 
 # @csrf_exempt
 def create_review(request, book_id):
@@ -102,3 +103,99 @@ def edit_review(request, review_id, book_id):
 
     context = {'form': form}
     return render(request, "edit_review.html", context)
+
+@csrf_exempt
+def create_review_flutter(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+
+            # Ensure that the user is authenticated before creating the review
+            if request.user.is_authenticated:
+                user = request.user
+            else:
+                # If the user is not authenticated, you can handle it accordingly.
+                # For example, you might want to return an error response.
+                return JsonResponse({"status": "error", "message": "User is not authenticated"}, status=402)
+
+            new_review = Review.objects.create(
+                book=Book.objects.get(pk=int(data["book_id"])),
+                user=user,
+                title=data["title"],
+                rating=int(data["rating"]),
+                comment=data["comment"],
+                username=user.username,
+            )
+
+            new_review.save()
+            print(request.user.username)
+            return JsonResponse({"status": "success"}, status=200)
+        except Exception as e:
+            # Log or print the exception for debugging
+            print(f"Error creating review: {e}")
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def edit_review_flutter(request):
+    # Check if the user is authenticated
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+
+            # Ensure that the user is authenticated before editing the review
+            if not request.user.is_authenticated:
+                return JsonResponse({"status": "error", "message": "User is not authenticated"}, status=402)
+
+            # Get the existing review based on review_id and check if the user owns the review
+            review_id = int(data.get("review_id", 0))
+            try:
+                review = Review.objects.get(pk=review_id, user=request.user)
+            except Review.DoesNotExist:
+                return JsonResponse({"status": "error", "message": "Review not found or user does not own the review"}, status=404)
+
+            # Update the existing review
+            review.book = Book.objects.get(pk=int(data.get("book_id")))
+            review.title = data.get("title", "")
+            review.rating = int(data.get("rating", 0))
+            review.comment = data.get("comment", "")
+            review.username = request.user.username
+            review.save()
+
+            return JsonResponse({"status": "success"}, status=200)
+        except Exception as e:
+            # Log or print the exception for debugging
+            print(f"Error updating review: {e}")
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def delete_review_flutter(request):
+    data = json.loads(request.body)
+    review_id = int(data.get("review_id", 0))
+    review = Review.objects.get(pk=review_id)
+
+    # Check if the user is the owner of the review
+    if request.user == review.user:
+        review.delete()
+        return JsonResponse({"status": "success", "message": "Review deleted successfully"}, status=200)
+    else:
+        return JsonResponse({"status": "error", "message": "User is not authorized to delete this review"}, status=403)
+    
+@csrf_exempt
+def check_username_flutter(request):
+    if request.user.is_authenticated:
+                user = request.user
+    else:
+                # If the user is not authenticated, you can handle it accordingly.
+                # For example, you might want to return an error response.
+        return JsonResponse({"status": "error", "message": "User is not authenticated"}, status=402)
+    user_data = {
+        'username': user.username,
+        'status': 'success'
+        # Add any other user-related fields you want to include
+    }
+    print(f"User Data: {user_data}")
+    return JsonResponse(user_data, status=200)
