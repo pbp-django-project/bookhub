@@ -5,7 +5,7 @@ WORKDIR /app
 ENV PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app \
     DJANGO_SETTINGS_MODULE=bookhub.settings \
-    PORT=8000 \
+    PORT=46530 \
     WEB_CONCURRENCY=2
 
 # Install system packages required Django.
