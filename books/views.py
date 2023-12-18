@@ -89,13 +89,14 @@ def get_userbooks(request):
 @csrf_exempt
 def add_books_mobile(request):
     if request.method == 'POST':
-        # user = User.objects.get(username=request.user.username)
         data = json.loads(request.body)
-        print(request.user.is_authenticated)
+        print(data["username"])
+        user = User.objects.get(username=data["username"])
+        print(user.username)
 
 
         add_books = models.UserBook.objects.create(
-            user = request.user,
+            user = user,
             title = data["title"],
             authors = data["authors"],
             publisher = data["publisher"],
