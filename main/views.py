@@ -17,6 +17,7 @@ def homepage(request):
     }
     return render(request, 'homepage.html', context)
 
+@csrf_exempt
 def signup_user(request):
     form = SignUpForm()
     if request.method == 'POST':
@@ -28,6 +29,7 @@ def signup_user(request):
     context = {'form':form}
     return render(request, 'signup.html', context)
 
+@csrf_exempt
 def login_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')

@@ -19,8 +19,8 @@ Fitur Utama:
 4. Dashboard Admin: Sebuah dashboard admin akan memungkinkan pengelola untuk mengelola konten, mengawasi aktivitas pengguna, dan memodifikasi data buku. (django-admin)
 5. Pengguna Terdaftar dan Anonim: Aplikasi akan mendukung pengguna terdaftar yang dapat membuat profil pribadi, serta pengguna anonim yang dapat menjelajahi buku dan artikel.
 6. Fitur Ulasan: Setiap pengguna dapat mengulas buku yang sudah mereka baca dengan memberikan rating 0-5.
-7. Fitur rekomendasi terkait: Ketika pengguna mengklik suatu judul buku, pada bagian web akan terdapat beberapa rekomendasi terkait berdasarkan genre atau penulis.
-8. Fitur history baca: fitur ini akan menglist setiap buku yang telah dibuka oleh user.
+8. Fitur Searching: fitur ini akan melakukan list terhadap seluruh buku sesuai dengan kata kunci yang dicari.
+9. Fitur Filtering: fitur ini akan melakukan filtering terhadap buku-buku berdasarkan judul, authors, dan publisher.
 
 Manfaat:
 - Meningkatkan literasi di masyarakat dengan memfasilitasi akses ke berbagai buku dan literatur.
@@ -30,23 +30,18 @@ Manfaat:
 - Meningkatkan kesadaran literasi di tengah tema "Literasi dalam Kebinekaan untuk Kemajuan Bangsa" yang sedang berlangsung.
 
 Dataset menggunakan antara,
-Project Gutenberg: https://www.gutenberg.org/ebooks/offline_catalogs.html, https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv, dan https://drive.google.com/file/d/17jiAwHx_68zUrolbTl75IoLRFK_JLYrx/view
-Atau Google API
-
+Kaggle dataset: https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset
 
 **Modul**  
-Modul Main: berisi homepage, login, signup, logout (pengelolaan user), contact, privacy policy, user terms. (Naufal)  
+Modul Main dan profile: berisi homepage, login, signup, logout (pengelolaan user), contact, privacy policy, user terms. (Iqza)  
 
-Modul Books: berisi segala pengolahan yang berkaitan dengan buku dan pemilahan baik berdasarkan genre, authors, tahun terbit, dll, terdapat fitur agar user bisa mengupload suatu buku atau delete buku yang telah diupload, terdapat pula detail buku seperti genre/authors/penerbit/sinopsis apabila buku diklik (Naufal)  
-
-Modul Profile: berisi profil pengguna, menentukan role-role dari user dan hak-hak pengguna dalam menggunakan aplikasi profile pada umumnya. Modul ini juga rencananya akan memiliki fitur yang sering diimplementasi oleh aplikasi media sosial kebanyakan seperti mengganti username, menambahkan/mengganti foto profil, dsb. (Iqza)  
+Modul Books: berisi segala pengolahan yang berkaitan dengan buku dan pemilahan baik berdasarkan genre, authors, tahun terbit, dll, terdapat fitur agar user bisa mengupload suatu buku, terdapat pula detail buku seperti genre/authors/penerbit/sinopsis apabila buku diklik (Naufal)  
 
 Modul Buletin literasi : berisi tentang berita literasi atau artikel literasi dan disertai dengan rekomendasi buku yang terkait. (Shirin)  
 
-Modul Review : Berisi halaman untuk me-review buku yang telah dibaca, dengan pemberian komentar atau ulasan dan juga pemberian rating. Hasil review dapat dilihat oleh pengguna lain saat melihat informasi buku tersebut. (Nano)   
+Modul Review : Berisi halaman untuk me-review buku yang telah dibaca, dengan pemberian komentar atau ulasan dan juga pemberian rating. Hasil review dapat dilihat oleh pengguna lain saat melihat informasi buku tersebut. (Mariano)   
 
-Modul Koleksi Pengguna: Modul yang memungkinkan pengguna berkontribusi dengan menambahkan buku mereka sendiri sebagai koleksi bersama, terdapat fitur untuk menghapus buku yang sudah ditambahkan (Mario)
-
+Modul Koleksi Pengguna dan hapus: Modul yang memungkinkan pengguna berkontribusi dengan menambahkan buku mereka sendiri sebagai koleksi bersama, terdapat fitur untuk menghapus buku yang sudah ditambahkan oleh user(Mario)
 
 
 **Role User**:  
