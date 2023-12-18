@@ -96,7 +96,7 @@ def add_books_mobile(request):
 
 
         add_books = models.UserBook.objects.create(
-            user = user,
+            user = request.user,
             title = data["title"],
             authors = data["authors"],
             publisher = data["publisher"],
