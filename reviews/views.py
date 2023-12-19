@@ -199,3 +199,62 @@ def check_username_flutter(request):
     }
     print(f"User Data: {user_data}")
     return JsonResponse(user_data, status=200)
+
+@csrf_exempt
+def get_avg_flutter(request):
+    if request.user.is_authenticated:
+                user = request.user
+    else:
+                # If the user is not authenticated, you can handle it accordingly.
+                # For example, you might want to return an error response.
+        return JsonResponse({"status": "error", "message": "User is not authenticated"}, status=402)
+    data = json.loads(request.body)
+    book_id = int(data.get("book_id", 0))
+    try:
+        book = Book.objects.get(pk=book_id)
+        reviews = Review.objects.filter(book=book)
+
+        if reviews.exists():
+            average_rating = sum(review.rating for review in reviews) / reviews.count()
+        else:
+            average_rating = 0.0
+
+        user_data = {
+            'avg': average_rating,
+            'status': 'success'
+            # Add any other user-related fields you want to include
+        }
+        print(f"User Data: {user_data}")
+        return JsonResponse(user_data, status=200)
+    except Book.DoesNotExist:
+        return JsonResponse({"status": "error", "message": "Book does not exist"}, status=404)
+
+@csrf_exempt
+def has_user_made_review_flutter(request):
+    if request.user.is_authenticated:
+                user = request.user
+    else:
+                # If the user is not authenticated, you can handle it accordingly.
+                # For example, you might want to return an error response.
+        return JsonResponse({"status": "error", "message": "User is not authenticated"}, status=402)
+    
+    data = json.loads(request.body)
+    book_id = int(data.get("book_id", 0))
+    try:
+        book = Book.objects.get(pk=book_id)
+        reviews = Review.objects.filter(book=book, user=user)
+
+        if reviews.exists():
+            res = True
+        else:
+            res = False
+
+        user_data = {
+            'hasMadeReview': res,
+            'status': 'success'
+            # Add any other user-related fields you want to include
+        }
+        print(f"User Data: {user_data}")
+        return JsonResponse(user_data, status=200)
+    except Book.DoesNotExist:
+        return JsonResponse({"status": "error", "message": "Book does not exist"}, status=404)
