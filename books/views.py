@@ -92,8 +92,6 @@ def add_books_mobile(request):
         data = json.loads(request.body)
         user = User.objects.get(username=data["username"])
 
-
-
         add_books = models.UserBook.objects.create(
             user = user,
             title = data["title"],
