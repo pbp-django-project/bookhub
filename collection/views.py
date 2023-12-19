@@ -111,3 +111,7 @@ def edit_book(request, id):
 #         book = get_object_or_404(models.Collection, pk=pk)
 #         book.delete()
 #         return HttpResponse('Book deleted')
+
+def get_userbooks(request):
+    data = models.UserBook.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
