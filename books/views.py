@@ -90,13 +90,12 @@ def get_userbooks(request):
 def add_books_mobile(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        print(data["username"])
         user = User.objects.get(username=data["username"])
-        print(user.username)
+
 
 
         add_books = models.UserBook.objects.create(
-            user = request.user,
+            user = user,
             title = data["title"],
             authors = data["authors"],
             publisher = data["publisher"],
