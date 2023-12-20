@@ -114,9 +114,16 @@ def edit_book(request, id):
 #         book.delete()
 #         return HttpResponse('Book deleted')
 
+@csrf_exempt
 def get_userbooks(request):
-    data = models.UserBook.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    data = json.loads(request.body)
+    print(data["username"])
+    user = User.objects.get(username=data["username"])
+        
+
+    books = UserBook.objects.all().filter(user = user)
+
+    return HttpResponse(serializers.serialize("json", books), content_type="application/json")
 
 @csrf_exempt
 def add_collection_mobile(request):
@@ -139,14 +146,3 @@ def add_collection_mobile(request):
         return JsonResponse({"status": "success"}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
-    
-@csrf_exempt
-def show_collection_mobile(request):
-    data = json.loads(request.body)
-    print(data["username"])
-    user = User.objects.get(username=data["username"])
-        
-
-    books = UserBook.objects.all().filter(user = user)
-
-    return HttpResponse(serializers.serialize("json", books), content_type="application/json")

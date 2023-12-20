@@ -12,5 +12,4 @@ urlpatterns = [
     path('edit/<int:pk>/', views.edit_book, name='edit-book'),
     path("collection-json/", views.get_userbooks, name='get-collectiget_collection'),
     path("add-collection-mobile/", views.add_collection_mobile, name='add-collection-mobile'),
-    path("show-collection-mobile/", views.show_collection_mobile, name='show-collection-mobile'),
 ]
