@@ -14,4 +14,5 @@ urlpatterns = [
     path("reviews/<int:book_id>", show_reviews, name='show-reviews'),
     path("book-id/<int:id>", views.show_json_b_by_id, name='book-json'),
     path("userbook-id/<int:id>", views.show_json_ub_by_id, name='userbook-json'),
+    path("add-books-mobile/", views.add_books_mobile, name='add-books-mobile'),
 ]
