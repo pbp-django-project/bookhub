@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from . import models
+from .models import *
 from . import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
@@ -13,11 +13,11 @@ from django.contrib.auth.models import User
 @csrf_exempt
 def show_collection(request): # harusnya tambahin id
     # books = models.Collection.objects.all()
-    books = models.Collection.objects.all() # harusnya ganti filter(pk = id)
-    user_books = models.UserBook.objects.all()
-    data = list(chain(books, user_books))
+    # books = Collection.objects.all() # harusnya ganti filter(pk = id)
+    user_books = UserBook.objects.all().filter(user = request.user)
+    # data = list(chain(books, user_books))
     context = {
-        'books': data
+        'books': user_books
     }
     return render(request, "mybook_page.html", context)
 
@@ -114,9 +114,16 @@ def edit_book(request, id):
 #         book.delete()
 #         return HttpResponse('Book deleted')
 
+@csrf_exempt
 def get_userbooks(request):
-    data = models.UserBook.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    data = json.loads(request.body)
+    print(data["username"])
+    user = User.objects.get(username=data["username"])
+        
+
+    books = UserBook.objects.all().filter(user = user)
+
+    return HttpResponse(serializers.serialize("json", books), content_type="application/json")
 
 @csrf_exempt
 def add_collection_mobile(request):
