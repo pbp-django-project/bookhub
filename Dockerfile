@@ -23,6 +23,8 @@ RUN pip install -r /requirements.txt
 COPY . .
 
 RUN python manage.py collectstatic --noinput --clear
+RUN python manage.py makemigrations --empty books
+RUN python manage.py migrate
 
 # Run as non-root user
 RUN chown -R django:django /app
