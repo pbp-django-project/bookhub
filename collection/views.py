@@ -124,25 +124,3 @@ def get_userbooks(request):
     books = UserBook.objects.all().filter(user = user)
 
     return HttpResponse(serializers.serialize("json", books), content_type="application/json")
-
-@csrf_exempt
-def add_collection_mobile(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        user = User.objects.get(username=data["username"])
-
-        add_collection = models.UserBook.objects.create(
-            user = user,
-            title = data["title"],
-            authors = data["authors"],
-            publisher = data["publisher"],
-            pub_year = int(data["pub_year"]),
-            isbn = data["isbn"],
-            cover_img = data["cover_img"]
-        )
-
-        add_collection.save()
-
-        return JsonResponse({"status": "success"}, status=200)
-    else:
-        return JsonResponse({"status": "error"}, status=401)
